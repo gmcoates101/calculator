@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <!-- Base application theme. -->
     <style name="Theme.Calculator" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
@@ -12,5 +13,26 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.CalculatorButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="Theme.DigitButton" parent="Theme.CalculatorButton">
+        <item name="android:backgroundTint">@color/digit_button</item>
+    </style>
+    <style name="Theme.OperandButton" parent="Theme.CalculatorButton">
+        <item name="android:backgroundTint">@color/operand_button</item>
+    </style>
+    <style name="Theme.FunctionButton" parent="Theme.CalculatorButton">
+        <item name="android:backgroundTint">@color/function_button</item>
+    </style>
+    <style name="Theme.CalculateButton" parent="Theme.CalculatorButton">
+        <item name="android:backgroundTint">@color/calculate_button</item>
     </style>
 </resources>
