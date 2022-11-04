@@ -11,7 +11,7 @@
     <color name="buttonBackground">#EFCF6F</color>
     <color name="light_grey">#EFEFEF</color>
     <color name="digit_button">#CFCFCF</color>
-    <color name="operand_button">#FF9800</color>
+    <color name="operator_button">#FF9800</color>
     <color name="function_button">#F44336</color>
     <color name="calculate_button">#039A03</color>
 </resources>

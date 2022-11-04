@@ -20,14 +20,14 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:layout_margin">2dp</item>
+        <item name="android:layout_margin">2sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
     <style name="Theme.DigitButton" parent="Theme.CalculatorButton">
         <item name="android:backgroundTint">@color/digit_button</item>
     </style>
-    <style name="Theme.OperandButton" parent="Theme.CalculatorButton">
-        <item name="android:backgroundTint">@color/operand_button</item>
+    <style name="Theme.OperatorButton" parent="Theme.CalculatorButton">
+        <item name="android:backgroundTint">@color/operator_button</item>
     </style>
     <style name="Theme.FunctionButton" parent="Theme.CalculatorButton">
         <item name="android:backgroundTint">@color/function_button</item>
