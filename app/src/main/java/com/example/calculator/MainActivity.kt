@@ -6,60 +6,102 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var resultTextView: TextView
-    private var point = false
-    private var operator = true
+    private var lastPoint = false
+    private var lastOperator = false
+    private var lastDigit = false
+
+    // TODO: Default result to 0 and handle when next tap
+    // TODO: Prevent first char being operator
+    // TODO: Percentage feature
+    // TODO: Add Backspace feature
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         resultTextView = findViewById(R.id.resultTextView)
-    }
-
-    fun onCalculate(view: View) {
-        val result = "10"
-
-        Toast.makeText(this, resultTextView.text, Toast.LENGTH_LONG).show()
-
-        resultTextView.text = result
+        onClear(resultTextView)
     }
 
     fun onClear(view: View) {
-        resultTextView.text = ""
-        point = false
-        operator = true
+        resultTextView.text = "0"
+        lastPoint = false
+        lastOperator = false
+        lastDigit = false
     }
 
     fun onDigit(view: View) {
-        val button: Button = view as Button
-
-        resultTextView.append(button.text)
-        operator = false
+        resultTextView.append((view as Button).text)
+        lastDigit = true
+        lastPoint = false
+        lastOperator = false
     }
 
     fun onOperator(view: View) {
-        val button: Button = view as Button
-        val operand = button.text
-        val lastChar = resultTextView.text[resultTextView.text.length -1]
-        val operands = arrayOf ("/", "*", "-", "+")
+        val operator = (view as Button).text.toString()
 
-        val op = (view as Button).text
-
-        if (!operator) {
-            resultTextView.append(" $op\n")
-            point = false
-            operator = true
+        if (operator == "-") {
+            if (!lastDigit || lastOperator)  {
+                resultTextView.append("-")
+            }
+        } else if (!lastOperator) {
+            resultTextView.append(" $operator ")
+            lastOperator = true
         }
+
+        lastPoint = false
+        lastDigit = false
     }
 
     fun onPoint(view: View) {
-        if (!point) {
-            resultTextView.append(".")
-            point = true
+        var pointString = "."
+        if (resultTextView.text.isNullOrBlank()) {
+            pointString = "0."
         }
+
+        if (!lastPoint) {
+            resultTextView.append(pointString)
+            lastPoint = true
+        }
+    }
+
+    fun onCalculate(view: View) {
+
+        try {
+            val (op1, op, op2) = resultTextView.text.split(' ')
+
+            val result = when(op) {
+                "*" -> (op1.toDouble() * op2.toDouble()).toString()
+                "/" -> (op1.toDouble() / op2.toDouble()).toString()
+                "+" -> (op1.toDouble() + op2.toDouble()).toString()
+                else -> (op1.toDouble() - op2.toDouble()).toString()
+            }
+
+            lastOperator = false
+            lastDigit = true
+            lastPoint = result.contains('.')
+
+            resultTextView.text = removeDotZero(result)
+        } catch(ex: Exception) {
+            Toast.makeText(this, "Expression is not complete!", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun removeDotZero(str: String): String {
+        val strLen = str.length
+
+        if (str.endsWith(".0")) {
+            return str.substring(0, strLen - 2)
+        }
+
+        if (str.endsWith("0")) {
+            return str.substring(0, strLen - 1)
+        }
+
+        return str
     }
 }
